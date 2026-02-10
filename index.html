@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teddy Note – Swipe Layout</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe9f0 0, #ffe0b5 50%, #f7c9ff 100%);
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .wrapper {
+      width: min(380px, 100%);
+      background: #ffeef5;
+      border-radius: 26px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      border: 1px solid #ffd0e3;
+    }
+
+    /* IMAGE AREA */
+    .image-area {
+      width: 210px;
+      height: 210px;
+      margin: 0 auto 20px;
+      border-radius: 100%;
+      background: #ffe9f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 3px solid rgba(255, 170, 170, 0.7);
+    }
+
+    .image-area img {
+      width: 220%;
+      max-width: 230px;
+      border-radius: 22px;
+      background: #fffdfb;
+      padding: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    /* SWIPE CONTAINER */
+    .swipe-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 16px;
+      padding: 16px 0 22px;
+    }
+
+    .swipe-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* CARDS */
+    .card {
+      min-width: 100%;
+      scroll-snap-align: start;
+      background: #fffdf8;
+      padding: 18px 18px 22px;
+      border-radius: 20px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+      margin-right: 10px;
+    }
+
+    .title {
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #ff6b81;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .note-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ff6b81;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #b36b5e;
+      margin-bottom: 14px;
+    }
+
+    .note-message {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #7a4c5a;
+      margin-bottom: 10px;
+    }
+
+    .note-footer {
+      font-size: 0.8rem;
+      color: #c07a8b;
+      text-align: right;
+      font-style: italic;
+    }
+
+    /* PAGE INDICATORS */
+    .indicator {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .dot {
+      height: 8px;
+      width: 8px;
+      margin: 0 4px;
+      background: #f4c2d1;
+      border-radius: 50%;
+      display: inline-block;
+      opacity: 0.4;
+      transition: 0.3s;
+    }
+
+    .dot.active {
+      opacity: 1;
+      background: #e88aa3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <!-- Teddy Image -->
+        <div class="image-area">
+      <img src="D:\Project/Teddy.png" alt="Teddy with flowers" />
+    </div>
+
+    <!-- Indicators (updated to 3 dots) -->
+    <div class="indicator">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <div class="title">For You</div>
+
+    <!-- Swipe Cards -->
+    <div class="swipe-container" id="swipe">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="note-title">A tiny bundle of warmth...</div>
+                <p class="note-message">
+          If I could wrap every soft feeling into one little moment, it would look like this—
+          a teddy, a bouquet, and the quiet wish that you feel so cherished today.
+        </p>
+        <div class="note-footer">From someone who thinks of you often</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="note-title">And a little extra warmth…</div>
+        <p class="note-message">
+          Not every teddy is made of cotton 🧸<br />
+          Some are stitched with care, patience, and love ❤️<br />
+          They don’t need perfection 🌿<br />
+          They just make the world feel a little more okay 🤍
+        </p>
+        <div class="note-footer">Always thinking of you</div>
+      </div>
+
+      <!-- Card 3 (new) -->
+      <div class="card">
+        <div class="note-title">For the smile you don’t know you wear…</div>
+                <p class="note-message">
+          May this teddy’s hug and a sprinkle of petals remind you:
+          you’re cared for, you’re seen, and you make ordinary days feel special.
+        </p>
+        <div class="note-footer">Happy Teddy Day</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById("swipe");
+    const dots = document.querySelectorAll(".dot");
+
+    container.addEventListener("scroll", () => {
+      const index = Math.round(container.scrollLeft / container.clientWidth);
+      dots.forEach((d, i) => d.classList.toggle("active", i === index));
+    });
+  </script>
+
+</body>
+</html>
